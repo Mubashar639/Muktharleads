@@ -7,6 +7,7 @@ import Private from "./PrivateRoute";
 import Protected from "./ProtectedRoute";
 import { verifyToken } from "../shared";
 import { login_success } from "../Redux/Actions/authentication";
+import { auth } from "../fireBaseConfig";
 
 class Main extends React.Component {
   constructor(props) {
@@ -28,10 +29,9 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    const user = verifyToken();
-    if (user) {
-      this.props.dispatch((dispatch) => dispatch(login_success(user)));
-    }
+    auth.onAuthStateChanged((userAuth) => {
+      this.props.dispatch((dispatch) => dispatch(login_success(userAuth)));
+    });
   }
 
   render() {

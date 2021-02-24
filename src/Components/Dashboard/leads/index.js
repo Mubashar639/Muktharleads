@@ -146,7 +146,9 @@ class AppCategories extends React.Component {
       <div>
         <Row>
           <Col span={24}>
-            <Typography.Title>All User</Typography.Title>
+            <Typography.Title level={4}>
+              punerentagreement.in Leads Management Admin Panel
+            </Typography.Title>
           </Col>
           <Col>
             <Divider />

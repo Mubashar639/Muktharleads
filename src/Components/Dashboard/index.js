@@ -65,17 +65,14 @@ class AppDetail extends React.Component {
     return (
       <div style={{ padding: "10px" }}>
         <Row style={{ marginBottom: "5px" }}>
-          <Col span={18}>
-            <PageHeader
-              style={{
-                borderTopLeftRadius: "10px",
-                borderBottomLeftRadius: "10px",
-              }}
-              onBack={() => this.props.history.goBack(1)}
-              title={
-                <Typography.Text>{this.state.app.appName}</Typography.Text>
-              }
-            />
+          <Col push={1} span={17}>
+            <Typography.Title> Leads Management Admin Panel</Typography.Title>
+          </Col>
+          <Col push={2} span={4}>
+            <div>
+              {" "}
+              <img src="/images/logo.jpeg" style={{ width: "200px" }} />
+            </div>
           </Col>
           <Col
             style={{

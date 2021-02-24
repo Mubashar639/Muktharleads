@@ -11,6 +11,10 @@ class AddCategory extends React.Component {
       name: "",
       email_id: "",
       password: "",
+      address: "",
+      biometric: "",
+      contactNo: "",
+      paymentAccount: "",
     };
   }
   cancelHandler = () => {
@@ -22,13 +26,15 @@ class AddCategory extends React.Component {
     const { email_id, name, password } = this.state;
     if (email_id || name || password) {
       this.props.dispatch(
-        CreateFacilities({
-          ...this.state,
-        })
+        CreateFacilities(
+          {
+            ...this.state,
+          },
+          this.props.refreshTheItem
+        )
       );
       this.props.closeModal();
       this.resetSate();
-      this.props.refreshTheItem();
     } else {
       alert("Please enter the required value ");
     }
@@ -41,6 +47,10 @@ class AddCategory extends React.Component {
       name: "",
       email_id: "",
       password: "",
+      address: "",
+      biometric: "",
+      contactNo: "",
+      paymentAccount: "",
     });
   render() {
     // console.log(this.state.securityLevel)
@@ -67,8 +77,17 @@ class AddCategory extends React.Component {
               <h3> name</h3>
               <Input
                 placeholder="Enter your user name"
+                value={this.state.name}
                 name="name"
-                allowClear
+                onChange={this.onChange}
+              />
+            </div>
+            <div>
+              <h3> address</h3>
+              <Input
+                placeholder="Enter your user address"
+                value={this.state.address}
+                name="address"
                 onChange={this.onChange}
               />
             </div>
@@ -86,8 +105,18 @@ class AddCategory extends React.Component {
                 <h3> email</h3>
                 <Input
                   placeholder="email_id of user"
+                  value={this.state.email_id}
                   name="email_id"
-                  allowClear
+                  onChange={this.onChange}
+                />
+              </div>
+              <div>
+                <h3> password</h3>
+                <Input
+                  placeholder="Enter your password"
+                  value={this.state.password}
+                  name="password"
+                  type="password"
                   onChange={this.onChange}
                 />
               </div>
@@ -102,12 +131,33 @@ class AddCategory extends React.Component {
             }}
           >
             <div>
-              <h3> password</h3>
+              <h3> Biometric Cost</h3>
               <Input
-                placeholder="Enter your password"
-                name="password"
-                type="password"
-                allowClear
+                placeholder="Enter your biometric"
+                value={this.state.biometric}
+                name="biometric"
+                type="number"
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div>
+              <h3> Contact No </h3>
+              <Input
+                placeholder="Enter your Contact No "
+                value={this.state.contactNo}
+                name="contactNo"
+                type="number"
+                onChange={this.onChange}
+              />
+            </div>
+            <div>
+              <h3> Payment Account</h3>
+              <Input
+                placeholder="Enter your Payment Account"
+                value={this.state.paymentAccount}
+                name="paymentAccount"
+                type="text"
                 onChange={this.onChange}
               />
             </div>

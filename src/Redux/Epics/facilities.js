@@ -15,7 +15,7 @@ import { addRow, getRows } from "../../fireBaseOpration";
 
 export const GetFacilities = () => (dispatch) => {
   dispatch(facility_loading());
-
+  debugger
   var usersRef = db.collection("/client");
 
   usersRef
@@ -45,7 +45,7 @@ export const GetFacilities = () => (dispatch) => {
   // console.log(res)
 };
 
-export const CreateFacilities = (creds) => (dispatch) => {
+export const CreateFacilities = (creds, fn) => (dispatch) => {
   debugger;
   const { email_id, password } = creds;
   // dispatch(login_loading());
@@ -61,6 +61,7 @@ export const CreateFacilities = (creds) => (dispatch) => {
         .add(creds)
         .then((ref) => {
           console.log("Added document with ID: ", ref);
+          fn();
           return { id: ref.id };
         });
       // dispatch(login_success(user));
@@ -95,24 +96,36 @@ export const DeleteFacilities = (creds) => (dispatch) => {
     });
 };
 
-export const UpdateFacilities = ({ id, ...creds }) => (dispatch) => {
+export const UpdateFacilities = ({ id, ...creds }, fn) => async (dispatch) => {
   // const {email,password}=creds
   // dispatch(login_loading());
-  const token = localStorage.getItem("token");
-  baseUrl
-    .patch(
-      "api/facility/" + id,
-      { ...creds },
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        dispatch(facility_update({ id, updatedfacility: res.data.facility }));
-        message.success("successfully updated");
-      }
+  // debugger;
+
+  // const emailCred = await auth.EmailAuthProvider.credential(
+  //   auth.currentUser,
+  //   creds.prepassword
+  // );
+  // auth.currentUser
+  //   .reauthenticateWithCredential(emailCred)
+  //   .then(() => {
+  //     // User successfully reauthenticated.
+  //     auth.currentUser.updatePassword(creds.password);
+
+  db.collection("/client")
+    .doc(id)
+    .update(creds)
+    .then((ref) => {
+      console.log("edit document with ID: ", ref);
+      fn();
+      return { id: id };
     })
     .catch((err) => {
       message.error(err.message);
       console.log(err);
     });
+  // })
+  // .catch((error) => {
+  //   // Handle error.
+  //   console.log(error);
+  // });
 };

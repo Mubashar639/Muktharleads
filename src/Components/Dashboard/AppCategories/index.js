@@ -11,6 +11,8 @@ import {
 // import { deleteFacility } from "../../../../../../android3/android/servers/order server/controllers/ficilityController";
 import { createStructuredSelector } from "reselect";
 import { FacilitySelector } from "../../../Redux/slector/facility";
+import { PlusCircleFilled } from "@ant-design/icons";
+
 class AppCategories extends React.Component {
   constructor(props) {
     super(props);
@@ -99,47 +101,33 @@ class AppCategories extends React.Component {
     {
       key: "biometric",
       title: "Biometric",
-      render: (text, record) => {
-        return <span>{record ? "yes" : "no"}</span>;
-      },
+      dataIndex: "biometric",
     },
+
     {
       key: "contact",
       title: "contact",
-      dataIndex: "contact",
+      dataIndex: "contactNo",
     },
     {
-      key: "token",
-      title: "Token",
-      dataIndex: "token",
+      key: "paymentAccount",
+      title: "Payment Account",
+      dataIndex: "paymentAccount",
     },
 
-    // {
-    //   key: "visitationDays",
-    //   title: "Visitation Days",
-    //   render: (text, record) => {
-    //     return (
-    //       <span>
-    //         {record.visitationDays.map((value, index) => (
-    //           <a> {index + 1 + " " + value + "  "} </a>
-    //         ))}
-    //       </span>
-    //     );
-    //   },
-    // },
-    // {
-    // title: "Action",
-    // key: "action",
-    // render: (text, record) => (
-    //   <span>
-    //     <a onClick={this.onRowClickHandler(record)}> Edit </a>
-    //     <Divider type="vertical" />
-    //     <a onClick={() => this.props.dispatch(DeleteFacilities(record._id))}>
-    //       Delete
-    //     </a>
-    //   </span>
-    // ),
-    // },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <span>
+          <a onClick={this.onRowClickHandler(record)}> Edit </a>
+          <Divider type="vertical" />
+          {/* <a onClick={() => this.props.dispatch(DeleteFacilities(record._id))}>
+            Delete
+          </a> */}
+        </span>
+      ),
+    },
   ];
   // facilities
   render() {
@@ -148,7 +136,9 @@ class AppCategories extends React.Component {
       <div>
         <Row>
           <Col span={24}>
-            <Typography.Title>All User</Typography.Title>
+            <Typography.Title level={4}>
+              punerentagreement.in user Management Admin Panel
+            </Typography.Title>
           </Col>
           <Col>
             <Divider />
@@ -157,22 +147,16 @@ class AppCategories extends React.Component {
         <Row type="flex" justify="end">
           <Col style={{ marginTop: "5px" }}>
             <Button
-              onClick={this.openModal}
               shape="circle"
+              icon={<PlusCircleFilled />}
+              onClick={this.openModal}
               size="large"
               type="primary"
-              icon="plus"
             />
           </Col>
         </Row>
         <Row gutter={16}>
           <Col>
-            <Input
-              placeholder="Enter name for Search"
-              style={{ width: "300px" }}
-              name="price"
-              onChange={this.onChangePrice}
-            />
             {this.props.facility ? (
               <Table
                 dataSource={this.state.facilities}
@@ -201,6 +185,7 @@ class AppCategories extends React.Component {
           isEditModalOpen={this.state.isEditModalOpan}
           closeEditModal={this.closeEditModal}
           category={this.state.categoryToEdit}
+          refreshTheItem={this.refreshTheItem}
           currencyVariation={this.state.categoriesModel.currencyVariation}
           editCategory={this.state.categoriesModel.editCategory}
           currencyVariationList={
