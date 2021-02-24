@@ -161,6 +161,7 @@ class EditCategory extends React.Component {
                   placeholder="email_id of user"
                   value={this.state.email_id}
                   name="email_id"
+                  disabled={true}
                   onChange={this.onChange}
                 />
               </div>
@@ -171,6 +172,7 @@ class EditCategory extends React.Component {
                   value={this.state.password}
                   name="password"
                   type="password"
+                  disabled={true}
                   onChange={this.onChange}
                 />
               </div>
