@@ -15,7 +15,6 @@ import { addRow, getRows } from "../../fireBaseOpration";
 
 export const GetFacilities = () => (dispatch) => {
   dispatch(facility_loading());
-  debugger
   var usersRef = db.collection("/client");
 
   usersRef

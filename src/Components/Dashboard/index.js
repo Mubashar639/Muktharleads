@@ -49,10 +49,13 @@ class AppDetail extends React.Component {
   profRouteRenderer = () => {
     const { app } = this.state;
     const { selectedKey } = this.state;
+    debugger;
     if (selectedKey === "appUsers") return <AppCategories app={app} />;
-    if (selectedKey === "pendingLeads") return <AppLeads app={app} />;
+    if (selectedKey === "pendingLeads")
+      return <AppLeads app={app} getdataKey="Pending" />;
     // if (selectedKey === "progressLeads") return <AppLeads app={app} />;
-    if (selectedKey === "finishLeads") return <AppLeads app={app} />;
+    if (selectedKey === "finishLeads")
+      return <AppLeads app={app} getdataKey="Finished" />;
 
     // if (selectedKey === "appAccounts") return <AppAccounts app={app} />;
     // if (selectedKey === "appTheme") return <AppTheme app={app} />;

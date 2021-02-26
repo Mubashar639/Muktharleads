@@ -23,7 +23,7 @@ class ApFood extends React.Component {
     };
   }
   componentDidMount() {
-    this.props.dispatch(Getfood());
+    this.props.dispatch(Getfood(this.props.getdataKey));
   }
 
   addCategory = (category) => {
@@ -70,6 +70,10 @@ class ApFood extends React.Component {
         foods: this.props.food.foods,
         filterfoods: this.props.food.foods,
       });
+    }
+
+    if (prevProps.getdataKey !== this.props.getdataKey) {
+      this.props.dispatch(Getfood(this.props.getdataKey));
     }
   }
 
@@ -136,19 +140,15 @@ class ApFood extends React.Component {
       dataIndex: "tokenNo",
     },
 
-    //    {
-    //   title: 'Action',
-    //   key: 'action',
-    //   render: (text, record) => (
-    //     <span>
-    //       <a onClick={this.onRowClickHandler(record)}> Edit </a>
-    //       <Divider type="vertical" />
-    //       <a onClick={()=>this.props.dispatch(
-    //         Deletefood(record._id)
-    //       )}>Delete</a>
-    //     </span>
-    //   ),
-    // },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <span>
+          <a onClick={this.onRowClickHandler(record)}> Edit </a>
+        </span>
+      ),
+    },
   ];
   // facilities
   render() {
@@ -207,7 +207,7 @@ class ApFood extends React.Component {
             this.state.categoriesModel.currencyVariationList
           }
         />
-        {/* <EditCategory
+        <EditCategory
           isEditModalOpen={this.state.isEditModalOpan}
           closeEditModal={this.closeEditModal}
           category={this.state.categoryToEdit}
@@ -215,8 +215,8 @@ class ApFood extends React.Component {
           editCategory={this.state.categoriesModel.editCategory}
           currencyVariationList={
             this.state.categoriesModel.currencyVariationList
-          } */}
-        {/* /> */}
+          }
+        />
       </div>
     );
   }

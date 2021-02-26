@@ -12,10 +12,11 @@ import { message } from "antd";
 import { baseUrl } from "../../shared";
 import { db } from "../../fireBaseConfig";
 
-export const Getfood = () => (dispatch) => {
+export const Getfood = (key) => (dispatch) => {
   var usersRef = db.collection("/leads");
 
   usersRef
+    .where("status", "==", key)
     .get()
     .then((usersSnap) => {
       const leads = [];
