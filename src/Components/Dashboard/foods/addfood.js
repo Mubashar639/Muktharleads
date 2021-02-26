@@ -17,6 +17,7 @@ class AddCategory extends React.Component {
       paymentCollectionAmount: "",
       bioMetricFor: true,
       userId: "",
+      userName: "",
       leadStage: "pending",
       status: "Pending",
     };
@@ -35,8 +36,10 @@ class AddCategory extends React.Component {
   };
 
   onSellector = (e) => {
+    const user = this.props.user.find((user) => user.id === e);
     this.setState({
-      userId: e,
+      userId: user.id,
+      userName: user.name,
     });
   };
   filehandler = (e) => {
@@ -80,7 +83,9 @@ class AddCategory extends React.Component {
       tokenNo ||
       paymentCollectionAmount
     ) {
-      this.props.dispatch(Createfood({ ...this.state }));
+      this.props.dispatch(
+        Createfood({ ...this.state }, this.props.refreshTheItem)
+      );
       this.resetSate();
       this.props.closeModal();
     } else {
@@ -90,12 +95,17 @@ class AddCategory extends React.Component {
 
   resetSate = () =>
     this.setState({
-      name: "",
-      pirce: "",
-      photo: "",
-      category: "select category",
-      path: "select Subcategory",
-      description: "",
+      lead: "",
+      dateTime: "",
+      contactNo: "",
+      address: "",
+      tokenNo: "",
+      paymentCollectionAmount: "",
+      bioMetricFor: true,
+      userId: "",
+      userName: "",
+      leadStage: "pending",
+      status: "Pending",
     });
   render() {
     console.log(this.props);
@@ -255,7 +265,7 @@ class AddCategory extends React.Component {
                   style={{ width: "200px" }}
                   onSelect={this.onSellector}
                   name="category"
-                  defaultValue={this.state.userId}
+                  defaultValue={this.state.userName}
                 >
                   {this.props.user &&
                     this.props.user.map((item, key) => {

@@ -40,7 +40,7 @@ export const Getfood = (key) => (dispatch) => {
     });
 };
 
-export const Createfood = (creds) => (dispatch) => {
+export const Createfood = (creds, cb) => (dispatch) => {
   // const {email,password}=creds
   // dispatch(login_loading());
   // let { dateTime } = creds;
@@ -50,6 +50,7 @@ export const Createfood = (creds) => (dispatch) => {
     .add(creds)
     .then((ref) => {
       console.log("Added document with ID: ", ref);
+      cb();
       return { id: ref.id };
     })
     .catch((err) => {
@@ -78,25 +79,16 @@ export const Deletefood = (creds) => (dispatch) => {
     });
 };
 
-export const Updatefood = ({ id, ...creds }) => (dispatch) => {
+export const Updatefood = ({ id, ...creds }, fn) => (dispatch) => {
   // const {email,password}=creds
   // dispatch(login_loading());
-  const form = new FormData();
-  form.append("name", creds.name);
-  form.append("path", creds.path);
-  form.append("description", creds.description);
-  form.append("price", creds.price);
-  if (creds.photo) form.append("photo", creds.photo);
-  const token = localStorage.getItem("token");
-  baseUrl
-    .patch("api/food/" + id, form, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        dispatch(food_update({ id, updatedfood: res.data.food }));
-        message.success("successfully updated");
-      }
+  db.collection("/leads")
+    .doc(id)
+    .update(creds)
+    .then((ref) => {
+      console.log("edit document with ID: ", ref);
+      fn();
+      return { id: id };
     })
     .catch((err) => {
       message.error(err.message);

@@ -25,6 +25,9 @@ class ApFood extends React.Component {
   componentDidMount() {
     this.props.dispatch(Getfood(this.props.getdataKey));
   }
+  refreshTheItem = () => {
+    this.props.dispatch(Getfood(this.props.getdataKey));
+  };
 
   addCategory = (category) => {
     // adding new Category
@@ -88,6 +91,55 @@ class ApFood extends React.Component {
   //     leadStage: "pending",
   //     status: "Pending",
   //   };
+  tableColumnsFinish = [
+    {
+      key: "lead",
+      title: "lead",
+      dataIndex: "lead",
+    },
+    {
+      key: "dateTime",
+      title: "date of lead",
+      render: (text, record) => (
+        // new Date(1612536692*1000)
+        <span>
+          {new Date(record.dateTime.seconds * 1000).toDateString() +
+            " " +
+            new Date(record.dateTime.seconds * 1000).toTimeString()}
+        </span>
+      ),
+    },
+    {
+      key: "userName",
+      title: "User name",
+      // title: "Category",
+      dataIndex: "userName",
+    },
+    {
+      key: "status",
+      title: "status",
+      // title: "Category",
+      dataIndex: "status",
+    },
+    {
+      key: "tokenNo",
+      title: "token No",
+      // title: "Category",
+      dataIndex: "tokenNo",
+    },
+    {
+      key: "userPaymentStatus",
+      title: "Payment Status",
+      // title: "Category",
+      dataIndex: "userPaymentStatus",
+    },
+    {
+      key: "paymentProof",
+      title: "Payment proof",
+      // title: "Category",
+      dataIndex: "paymentProof",
+    },
+  ];
   tableColumns = [
     {
       key: "lead",
@@ -128,6 +180,12 @@ class ApFood extends React.Component {
       dataIndex: "userId",
     },
     {
+      key: "userName",
+      title: "User name",
+      // title: "Category",
+      dataIndex: "userName",
+    },
+    {
       key: "status",
       title: "status",
       // title: "Category",
@@ -145,7 +203,9 @@ class ApFood extends React.Component {
       key: "action",
       render: (text, record) => (
         <span>
+          {/* {this.props.getdataKey !== "Finished" && ( */}
           <a onClick={this.onRowClickHandler(record)}> Edit </a>
+          {/* )} */}
         </span>
       ),
     },
@@ -178,22 +238,34 @@ class ApFood extends React.Component {
         </Row>
         <Row gutter={16}>
           <Col>
-            <Input
+            {/* <Input
               placeholder="Enter name for Search"
               style={{ width: "300px" }}
               name="price"
               onChange={this.onChangePrice}
-            />
+            /> */}
             {this.props.food ? (
-              <Table
-                dataSource={this.state.foods}
-                pagination={false}
-                columns={this.tableColumns}
-                rowKey={(record) => record._id}
-                // onRow={(record) => ({
-                //   onClick: this.onRowClickHandler(record)
-                // })}
-              />
+              this.props.getdataKey !== "Finished" ? (
+                <Table
+                  dataSource={this.state.foods}
+                  pagination={false}
+                  columns={this.tableColumns}
+                  rowKey={(record) => record._id}
+                  // onRow={(record) => ({
+                  //   onClick: this.onRowClickHandler(record)
+                  // })}
+                />
+              ) : (
+                <Table
+                  dataSource={this.state.foods}
+                  pagination={false}
+                  columns={this.tableColumnsFinish}
+                  rowKey={(record) => record._id}
+                  // onRow={(record) => ({
+                  //   onClick: this.onRowClickHandler(record)
+                  // })}
+                />
+              )
             ) : (
               <h1>No data</h1>
             )}
@@ -203,11 +275,13 @@ class ApFood extends React.Component {
           closeModal={this.closeModal}
           isModalOpen={this.state.isModalOpen}
           addCategory={this.addCategory}
+          refreshTheItem={this.refreshTheItem}
           currencyVariationList={
             this.state.categoriesModel.currencyVariationList
           }
         />
         <EditCategory
+          refreshTheItem={this.refreshTheItem}
           isEditModalOpen={this.state.isEditModalOpan}
           closeEditModal={this.closeEditModal}
           category={this.state.categoryToEdit}

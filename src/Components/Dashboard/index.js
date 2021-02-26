@@ -71,10 +71,10 @@ class AppDetail extends React.Component {
           <Col push={1} span={17}>
             <Typography.Title> Leads Management Admin Panel</Typography.Title>
           </Col>
-          <Col push={2} span={4}>
+          <Col push={1} span={5}>
             <div>
               {" "}
-              <img src="/images/logo.jpeg" style={{ width: "200px" }} />
+              <img src="/images/pra_logo-1.png" style={{ width: "300px" }} />
             </div>
           </Col>
           <Col

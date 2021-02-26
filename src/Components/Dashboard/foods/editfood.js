@@ -36,6 +36,8 @@ class EditCategory extends React.Component {
         ),
         bioMetricFor: nextProps.category.bioMetricFor,
         userId: nextProps.category.userId,
+        userName: nextProps.category.userName,
+
         leadStage: nextProps.category.leadStage,
         status: nextProps.category.status,
         id: nextProps.category.id,
@@ -53,7 +55,9 @@ class EditCategory extends React.Component {
     // // form.append("photo", this.state.photo)
     // console.log(form)
 
-    this.props.dispatch(Updatefood({ ...this.state }));
+    this.props.dispatch(
+      Updatefood({ ...this.state }, this.props.refreshTheItem)
+    );
     this.resetSate();
     this.props.closeEditModal();
   };
@@ -68,6 +72,7 @@ class EditCategory extends React.Component {
       paymentCollectionAmount: "",
       bioMetricFor: true,
       userId: "",
+      userName: "",
       leadStage: "pending",
       status: "Pending",
       isModalInitialized: false,
@@ -88,16 +93,11 @@ class EditCategory extends React.Component {
     this.setState({ path: array });
   };
   onSellector = (e) => {
-    const selectedCategory = this.props.categorymy.filter(
-      (item) => item.path === e
-    );
-    this.setState(
-      {
-        category: selectedCategory[0],
-        path: "select Subcategory",
-      },
-      () => console.log(this.state.category)
-    );
+    const user = this.props.user.find((user) => user.id === e);
+    this.setState({
+      userId: user.id,
+      userName: user.name,
+    });
   };
   filehandler = (e) => {
     // const files = Array.from(e.target.files)
@@ -274,7 +274,7 @@ class EditCategory extends React.Component {
                   style={{ width: "200px" }}
                   onSelect={this.onSellector}
                   name="category"
-                  defaultValue={this.state.userId}
+                  defaultValue={this.state.userName}
                 >
                   {this.props.user &&
                     this.props.user.map((item, key) => {
@@ -295,5 +295,6 @@ class EditCategory extends React.Component {
 }
 const mapStateToProps = (state, ownProps) => ({
   categorymy: state.Category.category,
+  user: state.Facility.facilities,
 });
 export default connect(mapStateToProps, null)(EditCategory);
