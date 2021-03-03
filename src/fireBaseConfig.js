@@ -2,13 +2,13 @@
 import firebase from "firebase";
 import firebaseadmin from "firebase-admin";
 const config = {
-  apiKey: "AIzaSyAdf4Et8FFK3HWWWZiOD216h4kwjtRisYQ",
-  authDomain: "pune-rent-agreement.firebaseapp.com",
-  projectId: "pune-rent-agreement",
-  storageBucket: "pune-rent-agreement.appspot.com",
-  messagingSenderId: "962520393349",
-  appId: "1:962520393349:web:3c047f5969509a2616abec",
-  measurementId: "G-SD4LSCVZCQ",
+  apiKey: "AIzaSyAE6zQaIN3rM1Zc410Rki3sRPtyP00rKiA",
+  authDomain: "pune-rent-agreement-3dfd5.firebaseapp.com",
+  projectId: "pune-rent-agreement-3dfd5",
+  storageBucket: "pune-rent-agreement-3dfd5.appspot.com",
+  messagingSenderId: "967889606241",
+  appId: "1:967889606241:web:ba4e8ae0a1453c80aebc20",
+  measurementId: "G-G81ENMH49L",
 };
 const firebaseApp = firebase.initializeApp(config);
 
