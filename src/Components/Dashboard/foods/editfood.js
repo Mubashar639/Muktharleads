@@ -14,13 +14,21 @@ class EditCategory extends React.Component {
       address: "",
       tokenNo: "",
       paymentCollectionAmount: "",
-      bioMetricFor: true,
+      bioMetricFor: [],
       userId: "",
       leadStage: "pending",
       status: "Pending",
+      optionsbioMetraicFor: [
+        { label: "Owner", value: "Owner" },
+        { label: "Tenant", value: "Tenant" },
+        { label: "Witness", value: "Witness" },
+      ],
     };
   }
-
+  onChangeCheckBox = (bioMetricFor) => {
+    // console.log("checked = ", checkedValues);
+    this.setState({ bioMetricFor });
+  };
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!prevState.isModalInitialized && nextProps.isEditModalOpen) {
       return {
@@ -34,7 +42,7 @@ class EditCategory extends React.Component {
         paymentCollectionAmount: Number(
           nextProps.category.paymentCollectionAmount
         ),
-        bioMetricFor: nextProps.category.bioMetricFor,
+        bioMetricFor: nextProps.category.bioMetricFor || [],
         userId: nextProps.category.userId,
         userName: nextProps.category.userName,
 
@@ -70,7 +78,7 @@ class EditCategory extends React.Component {
       address: "",
       tokenNo: "",
       paymentCollectionAmount: "",
-      bioMetricFor: true,
+      bioMetricFor: [],
       userId: "",
       userName: "",
       leadStage: "pending",
@@ -219,15 +227,20 @@ class EditCategory extends React.Component {
               }}
             >
               <div>
-                <h3> biometric </h3>
-                <Checkbox
+                <h3> biometric for</h3>
+                {/* <Checkbox
                   value={this.state.bioMetricFor}
                   onChange={(e) =>
                     this.setState({ bioMetricFor: e.target.checked })
                   }
                 >
                   biometric
-                </Checkbox>
+                </Checkbox> */}
+                <Checkbox.Group
+                  options={this.state.optionsbioMetraicFor}
+                  defaultValue={this.state.bioMetricFor}
+                  onChange={this.onChangeCheckBox}
+                />
               </div>
               <div>
                 <h3> date and time </h3>

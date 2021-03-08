@@ -15,11 +15,16 @@ class AddCategory extends React.Component {
       address: "",
       tokenNo: "",
       paymentCollectionAmount: "",
-      bioMetricFor: true,
+      bioMetricFor: [],
       userId: "",
       userName: "",
       leadStage: "pending",
       status: "Pending",
+      optionsbioMetraicFor: [
+        { label: "Owner", value: "Owner" },
+        { label: "Tenant", value: "Tenant" },
+        { label: "Witness", value: "Witness" },
+      ],
     };
   }
   cancelHandler = () => {
@@ -92,6 +97,10 @@ class AddCategory extends React.Component {
       alert(" please enter category and subcategory");
     }
   };
+  onChangeCheckBox = (bioMetricFor) => {
+    // console.log("checked = ", checkedValues);
+    this.setState({ bioMetricFor });
+  };
 
   resetSate = () =>
     this.setState({
@@ -101,7 +110,7 @@ class AddCategory extends React.Component {
       address: "",
       tokenNo: "",
       paymentCollectionAmount: "",
-      bioMetricFor: true,
+      bioMetricFor: [],
       userId: "",
       userName: "",
       leadStage: "pending",
@@ -210,15 +219,20 @@ class AddCategory extends React.Component {
               }}
             >
               <div>
-                <h3> biometric </h3>
-                <Checkbox
+                <h3> biometric for </h3>
+                {/* <Checkbox
                   value={this.state.bioMetricFor}
                   onChange={(e) =>
                     this.setState({ bioMetricFor: e.target.checked })
                   }
                 >
                   biometric
-                </Checkbox>
+                </Checkbox> */}
+                <Checkbox.Group
+                  options={this.state.optionsbioMetraicFor}
+                  defaultValue={this.state.bioMetricFor}
+                  onChange={this.onChangeCheckBox}
+                />
               </div>
               <div>
                 <h3> date and time </h3>
