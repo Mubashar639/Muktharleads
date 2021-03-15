@@ -116,7 +116,7 @@ class AddCategory extends React.Component {
                   placeholder="Enter your password"
                   value={this.state.password}
                   name="password"
-                  type="password"
+                  type="text"
                   onChange={this.onChange}
                 />
               </div>
@@ -130,17 +130,6 @@ class AddCategory extends React.Component {
               justifyContent: "space-around",
             }}
           >
-            <div>
-              <h3> Biometric Cost</h3>
-              <Input
-                placeholder="Enter your biometric"
-                value={this.state.biometric}
-                name="biometric"
-                type="number"
-                onChange={this.onChange}
-              />
-            </div>
-
             <div>
               <h3> Contact No </h3>
               <Input

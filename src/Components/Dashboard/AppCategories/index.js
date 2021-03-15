@@ -99,12 +99,6 @@ class AppCategories extends React.Component {
     },
 
     {
-      key: "biometric",
-      title: "Biometric",
-      dataIndex: "biometric",
-    },
-
-    {
       key: "contact",
       title: "contact",
       dataIndex: "contactNo",
