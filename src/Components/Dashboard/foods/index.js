@@ -1,11 +1,21 @@
 import React from "react";
-import { Row, Col, Typography, Button, Divider, Table, Input } from "antd";
+import {
+  Row,
+  Col,
+  Typography,
+  Button,
+  Divider,
+  Table,
+  Input,
+  Avatar,
+  Image,
+} from "antd";
 import { CategoriesModel } from "../../../shared";
 import AddCategory from "./addfood";
 import EditCategory from "./editfood";
 import { connect } from "react-redux";
 import { Getfood, Deletefood } from "../../../Redux/Epics/food";
-import { Url } from "../../../shared";
+import { storageRef } from "../../../fireBaseConfig";
 
 // import { deleteFacility } from "../../../../../../android3/android/servers/order server/controllers/ficilityController";
 
@@ -137,7 +147,28 @@ class ApFood extends React.Component {
       key: "paymentProof",
       title: "Payment proof",
       // title: "Category",
-      dataIndex: "paymentProof",
+
+      render: (text, record) => {
+        // new Date(1612536692*1000)
+        debugger;
+        return (
+          <span>
+            {
+              <Avatar
+                src={
+                  record.paymentProof && (
+                    <Image
+                      src={`https://firebasestorage.googleapis.com/v0/b/pune-rent-agreement-3dfd5.appspot.com/o/punerentagreement_paymentproofs%2F${
+                        record.paymentProof.split("/")[1]
+                      }?alt=media&token=306b9ea5-b38f-4e51-a8a5-f86159d1658c`}
+                    />
+                  )
+                }
+              />
+            }
+          </span>
+        );
+      },
     },
   ];
   tableColumns = [
